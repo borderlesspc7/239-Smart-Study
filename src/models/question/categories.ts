@@ -1,5 +1,3 @@
-import { mathQuestions } from "./math/mathQuestions";
-
 export const categories = [
   {
     id: "1",

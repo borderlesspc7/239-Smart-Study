@@ -12,7 +12,7 @@ import type {
   RegisterCredentials,
   User,
 } from "../types/user";
-import getFirebaseErrorMessage from "../components/ErrorMessage";
+import getFirebaseErrorMessage from "../components/ErrorMesage";
 
 interface FirebaseError {
   code?: string;

@@ -1,9 +1,8 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text } from "react-native";
+import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
 export const CustomButton = (props: {
   type: "primary" | "secondary";
-  isDisabled?: true;
+  isDisabled?: boolean;
   onPress: () => void;
   onLongPress?: () => void;
   text: string;
@@ -14,23 +13,55 @@ export const CustomButton = (props: {
     <TouchableOpacity
       onPress={onPress}
       onLongPress={onLongPress}
-      style={type === "primary" ? styles.button : styles.buttonSecondary}
+      style={[
+        type === "primary" ? styles.button : styles.buttonSecondary,
+        isDisabled && styles.disabled,
+      ]}
       disabled={isDisabled}
     >
-      <Text>{text}</Text>
+      <Text
+        style={
+          type === "primary" ? styles.buttonText : styles.buttonTextSecondary
+        }
+      >
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "blue",
-    padding: 8,
-    borderRadius: 100,
+    backgroundColor: "#E53E3E",
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 56,
   },
   buttonSecondary: {
-    backgroundColor: "red",
-    padding: 8,
-    borderRadius: 100,
+    backgroundColor: "transparent",
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 56,
+    borderWidth: 1,
+    borderColor: "#E53E3E",
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  buttonTextSecondary: {
+    color: "#E53E3E",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  disabled: {
+    opacity: 0.6,
   },
 });

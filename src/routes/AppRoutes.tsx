@@ -1,13 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { paths } from "./paths";
 import { ProtectedRoute } from "./ProtectedRoutes";
 import { LoginScreen } from "../pages/LoginScreen";
 import { RegisterScreen } from "../pages/RegisterScreen";
 import { MenuScreen } from "../pages/MenuScreen";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export const AppRoutes = () => {
   return (

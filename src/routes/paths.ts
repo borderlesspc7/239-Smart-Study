@@ -1,5 +1,11 @@
 export const paths = {
   login: "/login",
   register: "/register",
-  menu: "/menu",
+  dashboard: "/dashboard",
+  questions: "/questions",
+  audioRecording: "/audio-recording",
+  studyPlan: "/study-plan",
+  mockExams: "/mock-exams",
+  content: "/content",
+  progress: "/progress",
 };

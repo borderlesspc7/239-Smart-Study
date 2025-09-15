@@ -44,7 +44,7 @@ export function RegisterScreen() {
 
     try {
       await register({ name, email, password });
-      navigation.navigate(paths.menu as never);
+      navigation.navigate(paths.dashboard as never);
     } catch (err) {
       // O erro já é tratado no AuthContext
     }

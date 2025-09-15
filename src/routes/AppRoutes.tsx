@@ -21,7 +21,7 @@ export const AppRoutes = () => {
         <Stack.Screen name={paths.login} component={LoginScreen} />
         <Stack.Screen name={paths.register} component={RegisterScreen} />
         <Stack.Screen
-          name={paths.menu}
+          name={paths.dashboard}
           component={() => (
             <ProtectedRoute>
               <MenuScreen />

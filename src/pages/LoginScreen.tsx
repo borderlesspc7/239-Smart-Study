@@ -30,7 +30,7 @@ export function LoginScreen() {
 
     try {
       await login({ email, password });
-      navigation.navigate(paths.menu as never);
+      navigation.navigate(paths.dashboard as never);
     } catch (err) {
       // O erro já é tratado no AuthContext
     }

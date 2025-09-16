@@ -16,6 +16,7 @@ import { StatCard } from "../components/dashboard/StatCard";
 import { QuickAccessCard } from "../components/dashboard/QuickAccessCard";
 import { WeeklyProgress } from "../components/dashboard/WeeklyProgress";
 import { RecentContentCard } from "../components/dashboard/RecentContentCard";
+import { Layout } from "../components/layout";
 
 export function MenuScreen() {
   const { user, logout } = useAuth();
@@ -103,199 +104,155 @@ export function MenuScreen() {
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <View>
-            <Text style={styles.greeting}>Olá, {user?.name || "Usuário"}!</Text>
-            <Text style={styles.subGreeting}>Pronto para estudar hoje?</Text>
-          </View>
-          <TouchableOpacity style={styles.profileButton} onPress={handleLogout}>
-            <MaterialIcons name="account-circle" size={32} color="#4F46E5" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Estatísticas Principais */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Seu Progresso</Text>
-        <View style={styles.statsGrid}>
-          <View style={styles.statsColumn}>
-            <StatCard
-              title="Questões Respondidas"
-              value={dashboardData.statistics.questionsAnswered}
-              icon="quiz"
-              color="#4F46E5"
-            />
-            <StatCard
-              title="Tempo Total de Estudo"
-              value={formatStudyTime()}
-              icon="schedule"
-              color="#059669"
-            />
-          </View>
-          <View style={styles.statsColumn}>
-            <StatCard
-              title="Taxa de Acerto"
-              value={formatAccuracyPercentage()}
-              icon="check-circle"
-              color="#DC2626"
-            />
-            <StatCard
-              title="Sequência de Dias"
-              value={`${dashboardData.statistics.currentStreak} dias`}
-              icon="local-fire-department"
-              color="#F59E0B"
-            />
-          </View>
-        </View>
-      </View>
-
-      {/* Meta Semanal */}
-      <View style={styles.section}>
-        <WeeklyProgress
-          weeklyGoal={dashboardData.statistics.weeklyGoal}
-          weeklyProgress={dashboardData.statistics.weeklyProgress}
-        />
-      </View>
-
-      {/* Acesso Rápido */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Acesso Rápido</Text>
-        {dashboardData.quickAccess.map((item) => (
-          <QuickAccessCard
-            key={item.id}
-            item={item}
-            onPress={handleQuickAccess}
-          />
-        ))}
-      </View>
-
-      {/* Conteúdos Recentes */}
-      {dashboardData.recentContent.length > 0 && (
+    <Layout>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {/* Estatísticas Principais */}
         <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Conteúdos Recentes</Text>
-            <TouchableOpacity>
-              <Text style={styles.seeAllText}>Ver todos</Text>
-            </TouchableOpacity>
-          </View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.horizontalScroll}
-          >
-            {dashboardData.recentContent.map((content) => (
-              <RecentContentCard
-                key={content.id}
-                content={content}
-                onPress={handleContentPress}
+          <Text style={styles.sectionTitle}>Seu Progresso</Text>
+          <View style={styles.statsGrid}>
+            <View style={styles.statsColumn}>
+              <StatCard
+                title="Questões Respondidas"
+                value={dashboardData.statistics.questionsAnswered}
+                icon="quiz"
+                color="#4F46E5"
               />
-            ))}
-          </ScrollView>
-        </View>
-      )}
-
-      {/* Tarefas de Hoje */}
-      {dashboardData.todaysTasks.length > 0 && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Tarefas de Hoje</Text>
-          {dashboardData.todaysTasks.slice(0, 3).map((task) => (
-            <View key={task.id} style={styles.taskItem}>
-              <MaterialIcons
-                name={
-                  task.isCompleted ? "check-circle" : "radio-button-unchecked"
-                }
-                size={20}
-                color={task.isCompleted ? "#10B981" : "#D1D5DB"}
+              <StatCard
+                title="Tempo Total de Estudo"
+                value={formatStudyTime()}
+                icon="schedule"
+                color="#059669"
               />
-              <Text
-                style={[
-                  styles.taskText,
-                  task.isCompleted && styles.taskCompleted,
-                ]}
-              >
-                {task.title}
-              </Text>
-              <View
-                style={[
-                  styles.priorityBadge,
-                  {
-                    backgroundColor:
-                      task.priority === "high"
-                        ? "#EF4444"
-                        : task.priority === "medium"
-                        ? "#F59E0B"
-                        : "#10B981",
-                  },
-                ]}
-              >
-                <Text style={styles.priorityText}>
-                  {task.priority === "high"
-                    ? "Alta"
-                    : task.priority === "medium"
-                    ? "Média"
-                    : "Baixa"}
-                </Text>
-              </View>
             </View>
+            <View style={styles.statsColumn}>
+              <StatCard
+                title="Taxa de Acerto"
+                value={formatAccuracyPercentage()}
+                icon="check-circle"
+                color="#DC2626"
+              />
+              <StatCard
+                title="Sequência de Dias"
+                value={`${dashboardData.statistics.currentStreak} dias`}
+                icon="local-fire-department"
+                color="#F59E0B"
+              />
+            </View>
+          </View>
+        </View>
+
+        {/* Meta Semanal */}
+        <View style={styles.section}>
+          <WeeklyProgress
+            weeklyGoal={dashboardData.statistics.weeklyGoal}
+            weeklyProgress={dashboardData.statistics.weeklyProgress}
+          />
+        </View>
+
+        {/* Acesso Rápido */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Acesso Rápido</Text>
+          {dashboardData.quickAccess.map((item) => (
+            <QuickAccessCard
+              key={item.id}
+              item={item}
+              onPress={handleQuickAccess}
+            />
           ))}
         </View>
-      )}
 
-      <View style={styles.bottomPadding} />
-    </ScrollView>
+        {/* Conteúdos Recentes */}
+        {dashboardData.recentContent.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Conteúdos Recentes</Text>
+              <TouchableOpacity>
+                <Text style={styles.seeAllText}>Ver todos</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.horizontalScroll}
+            >
+              {dashboardData.recentContent.map((content) => (
+                <RecentContentCard
+                  key={content.id}
+                  content={content}
+                  onPress={handleContentPress}
+                />
+              ))}
+            </ScrollView>
+          </View>
+        )}
+
+        {/* Tarefas de Hoje */}
+        {dashboardData.todaysTasks.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Tarefas de Hoje</Text>
+            {dashboardData.todaysTasks.slice(0, 3).map((task) => (
+              <View key={task.id} style={styles.taskItem}>
+                <MaterialIcons
+                  name={
+                    task.isCompleted ? "check-circle" : "radio-button-unchecked"
+                  }
+                  size={20}
+                  color={task.isCompleted ? "#10B981" : "#D1D5DB"}
+                />
+                <Text
+                  style={[
+                    styles.taskText,
+                    task.isCompleted && styles.taskCompleted,
+                  ]}
+                >
+                  {task.title}
+                </Text>
+                <View
+                  style={[
+                    styles.priorityBadge,
+                    {
+                      backgroundColor:
+                        task.priority === "high"
+                          ? "#EF4444"
+                          : task.priority === "medium"
+                          ? "#F59E0B"
+                          : "#10B981",
+                    },
+                  ]}
+                >
+                  <Text style={styles.priorityText}>
+                    {task.priority === "high"
+                      ? "Alta"
+                      : task.priority === "medium"
+                      ? "Média"
+                      : "Baixa"}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        )}
+
+        <View style={styles.bottomPadding} />
+      </ScrollView>
+    </Layout>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F9FAFB",
   },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F9FAFB",
-  },
-  header: {
-    backgroundColor: "#FFFFFF",
-    paddingTop: 50,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  headerContent: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  greeting: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#111827",
-    marginBottom: 4,
-  },
-  subGreeting: {
-    fontSize: 16,
-    color: "#6B7280",
-  },
-  profileButton: {
-    padding: 4,
   },
   section: {
     paddingHorizontal: 20,

@@ -31,7 +31,7 @@ const defaultSidebarItems: SidebarItem[] = [
         id: "questions",
         title: "Questões",
         icon: "quiz",
-        route: paths.questions,
+        route: paths.questionsHome,
       },
       {
         id: "audio-recording",
@@ -175,8 +175,8 @@ export function Layout({
   const handleSidebarItemPress = (item: SidebarItem) => {
     if (onSidebarItemPress) {
       onSidebarItemPress(item);
-    } else {
-      navigation.navigate(item.route as never);
+    } else if (item.route) {
+      (navigation as any).navigate(item.route);
     }
   };
 

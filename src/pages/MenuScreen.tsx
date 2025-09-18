@@ -13,6 +13,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useAuth } from "../hooks/useAuth";
 import { DashboardService } from "../services/dashboardService";
 import { DashboardData } from "../types/dashboard";
+import { paths } from "../routes/paths";
 import { StatCard } from "../components/dashboard/StatCard";
 import { QuickAccessCard } from "../components/dashboard/QuickAccessCard";
 import { WeeklyProgress } from "../components/dashboard/WeeklyProgress";
@@ -70,7 +71,13 @@ export function MenuScreen() {
   };
 
   const handleQuickAccess = (route: string) => {
-    if (route === "/audio-recording") {
+    console.log("Tentando navegar para:", route);
+
+    if (route === paths.audioRecording) {
+      (navigation as any).navigate(route);
+    } else if (route === paths.questionsHome) {
+      (navigation as any).navigate(route);
+    } else if (route === paths.questionsBySubject) {
       (navigation as any).navigate(route);
     } else {
       // TODO: Implementar navegação para as outras telas

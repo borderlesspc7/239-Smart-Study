@@ -12,6 +12,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../lib/firebaseconfig";
+import { paths } from "../routes/paths";
 import {
   StudyStatistics,
   DashboardData,
@@ -230,11 +231,11 @@ export class DashboardService {
     return [
       {
         id: "questions",
-        title: "Banco de Questões",
-        subtitle: "Pratique com milhares de questões",
+        title: "Questões por Matéria",
+        subtitle: "Pratique questões organizadas por disciplina",
         icon: "quiz",
         color: "#4F46E5",
-        route: "/questions",
+        route: paths.questionsHome,
       },
       {
         id: "audio-recording",

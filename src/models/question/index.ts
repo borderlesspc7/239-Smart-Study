@@ -5,17 +5,32 @@ export {
   StudyRecommendation,
   StudySession,
 } from "./question";
-export { mathQuestions } from "./math/mathQuestions";
-export { physicsQuestions } from "./physics/physicsQuestions";
-export { chemistryQuestions } from "./chemistry/chemistryQuestions";
-export { biologyQuestions } from "./biology/biologyQuestions";
-export { historyQuestions } from "./history/historyQuestions";
-export { geographyQuestions } from "./geography/geographyQuestions";
-export { portugueseQuestions } from "./portuguese/portugueseQuestions";
-export { literatureQuestions } from "./literature/literatureQuestions";
-export { philosophyQuestions } from "./philosophy/philosophyQuestions";
-export { sociologyQuestions } from "./sociology/sociologyQuestions";
-export { englishQuestions } from "./english/englishQuestions";
+
+// Importar todas as questões
+import { mathQuestions } from "./math/mathQuestions";
+import { physicsQuestions } from "./physics/physicsQuestions";
+import { chemistryQuestions } from "./chemistry/chemistryQuestions";
+import { biologyQuestions } from "./biology/biologyQuestions";
+import { historyQuestions } from "./history/historyQuestions";
+import { geographyQuestions } from "./geography/geographyQuestions";
+import { portugueseQuestions } from "./portuguese/portugueseQuestions";
+import { literatureQuestions } from "./literature/literatureQuestions";
+import { philosophyQuestions } from "./philosophy/philosophyQuestions";
+import { sociologyQuestions } from "./sociology/sociologyQuestions";
+import { englishQuestions } from "./english/englishQuestions";
+
+// Exportar as questões individuais
+export { mathQuestions };
+export { physicsQuestions };
+export { chemistryQuestions };
+export { biologyQuestions };
+export { historyQuestions };
+export { geographyQuestions };
+export { portugueseQuestions };
+export { literatureQuestions };
+export { philosophyQuestions };
+export { sociologyQuestions };
+export { englishQuestions };
 
 // Array com todas as questões
 export const allQuestions = [

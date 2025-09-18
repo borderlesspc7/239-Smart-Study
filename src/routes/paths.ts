@@ -7,7 +7,8 @@ export const paths = {
   dashboard: "/dashboard",
 
   // Study Section
-  questions: "/questions",
+  questionsHome: "/questions-home",
+  questionsBySubject: "/questions-by-subject",
   practice: "/practice",
   simulator: "/simulator",
   audioRecording: "/audio-recording",

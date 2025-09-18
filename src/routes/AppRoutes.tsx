@@ -6,6 +6,8 @@ import { ProtectedRoute } from "./ProtectedRoutes";
 import { LoginScreen } from "../pages/LoginScreen";
 import { RegisterScreen } from "../pages/RegisterScreen";
 import { MenuScreen } from "../pages/MenuScreen";
+import { AudioRecordingScreen } from "../pages/AudioRecordingScreen";
+import { SubjectAudioScreen } from "../pages/SubjectAudioScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +27,22 @@ export const AppRoutes = () => {
           component={() => (
             <ProtectedRoute>
               <MenuScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.audioRecording}
+          component={() => (
+            <ProtectedRoute>
+              <AudioRecordingScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name="subject-audio"
+          component={({ route }: any) => (
+            <ProtectedRoute>
+              <SubjectAudioScreen subject={route.params?.subject || ""} />
             </ProtectedRoute>
           )}
         />

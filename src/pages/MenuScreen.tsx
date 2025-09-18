@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   RefreshControl,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useAuth } from "../hooks/useAuth";
 import { DashboardService } from "../services/dashboardService";
@@ -20,6 +21,7 @@ import { Layout } from "../components/layout";
 
 export function MenuScreen() {
   const { user, logout } = useAuth();
+  const navigation = useNavigation();
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(
     null
   );
@@ -68,8 +70,12 @@ export function MenuScreen() {
   };
 
   const handleQuickAccess = (route: string) => {
-    // TODO: Implementar navegação para as diferentes telas
-    Alert.alert("Navegação", `Navegando para: ${route}`);
+    if (route === "/audio-recording") {
+      (navigation as any).navigate(route);
+    } else {
+      // TODO: Implementar navegação para as outras telas
+      Alert.alert("Navegação", `Navegando para: ${route}`);
+    }
   };
 
   const handleContentPress = (content: any) => {

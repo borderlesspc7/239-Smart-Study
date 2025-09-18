@@ -34,6 +34,12 @@ const defaultSidebarItems: SidebarItem[] = [
         route: paths.questions,
       },
       {
+        id: "audio-recording",
+        title: "Gravação de Áudio",
+        icon: "mic",
+        route: paths.audioRecording,
+      },
+      {
         id: "practice",
         title: "Prática",
         icon: "fitness-center",

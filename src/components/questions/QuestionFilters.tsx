@@ -1,13 +1,12 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { QuestionFilter } from "../../models/question";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import type { QuestionFilter } from "../../models/question";
 import { categories } from "../../models/question";
 
 interface QuestionFiltersProps {
@@ -17,6 +16,12 @@ interface QuestionFiltersProps {
 }
 
 const difficulties = ["Fácil", "Médio", "Difícil"] as const;
+const examTypes = [
+  { value: "ENEM", label: "ENEM" },
+  { value: "VESTIBULAR", label: "Vestibular" },
+  { value: "CONCURSO", label: "Concurso" },
+  { value: "GENERAL", label: "Geral" },
+] as const;
 
 export function QuestionFilters({
   filters,
@@ -42,7 +47,18 @@ export function QuestionFilters({
     onFiltersChange(newFilters);
   };
 
-  const hasActiveFilters = filters.categoryId || filters.difficulty;
+  const handleExamTypeSelect = (
+    examType: "ENEM" | "VESTIBULAR" | "CONCURSO" | "GENERAL"
+  ) => {
+    const newFilters = {
+      ...filters,
+      examType: filters.examType === examType ? undefined : examType,
+    };
+    onFiltersChange(newFilters);
+  };
+
+  const hasActiveFilters =
+    filters.categoryId || filters.difficulty || filters.examType;
 
   return (
     <View style={styles.container}>
@@ -55,6 +71,36 @@ export function QuestionFilters({
             <Text style={styles.clearText}>Limpar</Text>
           </TouchableOpacity>
         )}
+      </View>
+
+      {/* Exam Type */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Tipo de Prova</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.horizontalList}
+        >
+          {examTypes.map((exam) => (
+            <TouchableOpacity
+              key={exam.value}
+              style={[
+                styles.examTypeChip,
+                filters.examType === exam.value && styles.examTypeChipActive,
+              ]}
+              onPress={() => handleExamTypeSelect(exam.value)}
+            >
+              <Text
+                style={[
+                  styles.examTypeText,
+                  filters.examType === exam.value && styles.examTypeTextActive,
+                ]}
+              >
+                {exam.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
 
       {/* Categorias */}
@@ -211,6 +257,27 @@ const styles = StyleSheet.create({
     color: "#6B7280",
   },
   difficultyTextActive: {
+    color: "#FFFFFF",
+  },
+  examTypeChip: {
+    backgroundColor: "#F3F4F6",
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginHorizontal: 4,
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+  },
+  examTypeChipActive: {
+    backgroundColor: "#8B5CF6",
+    borderColor: "#8B5CF6",
+  },
+  examTypeText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#6B7280",
+  },
+  examTypeTextActive: {
     color: "#FFFFFF",
   },
 });

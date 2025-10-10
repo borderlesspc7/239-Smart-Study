@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-  RefreshControl,
-  Modal,
-  TextInput,
-} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Audio } from "expo-av";
+import { useEffect, useState } from "react";
+import {
+  Alert,
+  Modal,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Layout } from "../components/layout";
 import { useAuth } from "../hooks/useAuth";
 import { AudioService } from "../services/audioService";
 import { AudioRecording } from "../types/audio";
-import { Layout } from "../components/layout";
 
 interface SubjectAudioScreenProps {
   subject: string;
@@ -23,6 +24,8 @@ interface SubjectAudioScreenProps {
 export function SubjectAudioScreen({ subject }: SubjectAudioScreenProps) {
   const { user } = useAuth();
   const [recordings, setRecordings] = useState<AudioRecording[]>([]);
+  const [recording, setRecording] = useState<Audio.Recording | null>(null);
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -57,43 +60,59 @@ export function SubjectAudioScreen({ subject }: SubjectAudioScreenProps) {
 
   const handleStartRecording = async () => {
     try {
+      const { status } = await Audio.requestPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permissão negada", "Você precisa permitir o microfone.");
+        return;
+      }
+
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+        staysActiveInBackground: false,
+        interruptionModeIOS: 0,
+        shouldDuckAndroid: true,
+        playThroughEarpieceAndroid: false,
+      });
+
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RecordingOptionsPresets.HIGH_QUALITY
+      );
+
+      setRecording(recording);
       setIsRecording(true);
       setRecordingTime(0);
 
-      // Simular início da gravação
-      const sessionId = await AudioService.startRecording();
-      console.log("Gravação iniciada:", sessionId);
-
-      // Simular contador de tempo
       const interval = setInterval(() => {
         setRecordingTime((prev) => prev + 1);
       }, 1000);
 
-      // Parar após 10 minutos (600 segundos) automaticamente
       setTimeout(() => {
         if (isRecording) {
           handleStopRecording(interval);
         }
       }, 600000);
-    } catch (error) {
-      console.error("Erro ao iniciar gravação:", error);
+    } catch (err) {
+      console.error("Erro ao iniciar gravação:", err);
       Alert.alert("Erro", "Não foi possível iniciar a gravação");
-      setIsRecording(false);
     }
   };
 
   const handleStopRecording = async (interval?: NodeJS.Timeout) => {
     try {
-      if (interval) {
-        clearInterval(interval);
-      }
+      if (interval) clearInterval(interval);
 
+      if (!recording) return;
+
+      await recording.stopAndUnloadAsync();
+      const uri = recording.getURI();
+
+      console.log("Arquivo gravado em:", uri);
+
+      setRecording(null);
       setIsRecording(false);
-      setShowNewRecordingModal(true);
 
-      // Simular parada da gravação
-      const newRecording = await AudioService.stopRecording("session_123");
-      console.log("Gravação finalizada:", newRecording);
+      setShowNewRecordingModal(true);
     } catch (error) {
       console.error("Erro ao parar gravação:", error);
       Alert.alert("Erro", "Não foi possível parar a gravação");
@@ -107,16 +126,21 @@ export function SubjectAudioScreen({ subject }: SubjectAudioScreenProps) {
     }
 
     try {
-      // Aqui você salvaria os metadados da gravação mais recente
-      // Por enquanto, vamos simular
-      Alert.alert("Sucesso", "Gravação salva com sucesso!");
+      await AudioService.saveRecording({
+        userId: user?.uid!,
+        subject,
+        title: newRecordingTitle,
+        topic: newRecordingTopic,
+        duration: recordingTime,
+        uri: recording?.getURI() || "",
+      });
 
+      Alert.alert("Sucesso", "Gravação salva com sucesso!");
       setShowNewRecordingModal(false);
       setNewRecordingTitle("");
       setNewRecordingTopic("");
       setRecordingTime(0);
 
-      // Recarregar lista de gravações
       await loadRecordings();
     } catch (error) {
       console.error("Erro ao salvar gravação:", error);
@@ -124,8 +148,22 @@ export function SubjectAudioScreen({ subject }: SubjectAudioScreenProps) {
     }
   };
 
-  const handlePlayRecording = (recording: AudioRecording) => {
-    Alert.alert("Reproduzir Áudio", `Reproduzindo: ${recording.title}`);
+  const handlePlayRecording = async (recording: AudioRecording) => {
+    try {
+      if (sound) {
+        await sound.unloadAsync();
+        setSound(null);
+      }
+
+      const { sound: newSound } = await Audio.Sound.createAsync({
+        uri: recording.uri,
+      });
+
+      setSound(newSound);
+      await newSound.playAsync();
+    } catch (err) {
+      console.error("Erro ao reproduzir:", err);
+    }
   };
 
   const handleDeleteRecording = (recording: AudioRecording) => {

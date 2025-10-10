@@ -1,20 +1,26 @@
-import React, { useState, useEffect, useMemo } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  RefreshControl,
-} from "react-native";
+"use client";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useEffect, useMemo, useState } from "react";
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Layout } from "../components/layout";
-import { QuestionFilters } from "../components/questions/QuestionFilters";
 import { QuestionCard } from "../components/questions/QuestionCard";
-import { Question, QuestionFilter, allQuestions } from "../models/question";
+import { QuestionFilters } from "../components/questions/QuestionFilters";
+import {
+  type Question,
+  type QuestionFilter,
+  allQuestions,
+} from "../models/question";
+import { paths } from "../routes/paths";
 
 interface RouteParams {
   categoryId?: string;
@@ -64,6 +70,10 @@ export function QuestionsScreen() {
       filtered = filtered.filter((q) => q.difficulty === filters.difficulty);
     }
 
+    if (filters.examType) {
+      filtered = filtered.filter((q) => q.examType === filters.examType);
+    }
+
     // Filtro por busca
     if (searchText.trim()) {
       const search = searchText.toLowerCase().trim();
@@ -79,18 +89,7 @@ export function QuestionsScreen() {
   }, [filters, searchText]);
 
   const handleQuestionPress = (question: Question) => {
-    // TODO: Navegar para tela de detalhes da questão ou quiz
-    Alert.alert(
-      "Questão Selecionada",
-      `Categoria: ${question.category}\nDificuldade: ${question.difficulty}`,
-      [
-        { text: "Voltar", style: "cancel" },
-        {
-          text: "Responder",
-          onPress: () => console.log("Iniciando questão..."),
-        },
-      ]
-    );
+    (navigation as any).navigate(paths.questionDetail, { question });
   };
 
   const handleFiltersChange = (newFilters: QuestionFilter) => {

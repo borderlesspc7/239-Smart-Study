@@ -1,17 +1,19 @@
+"use client";
+
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
   Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { CustomButton } from "../components/button/customButton";
 import { useAuth } from "../hooks/useAuth";
 import { paths } from "../routes/paths";
@@ -44,7 +46,7 @@ export function RegisterScreen() {
 
     try {
       await register({ name, email, password });
-      navigation.navigate(paths.dashboard as never);
+      navigation.navigate(paths.examSelection as never);
     } catch (err) {
       // O erro já é tratado no AuthContext
     }

@@ -1,4 +1,4 @@
-import { Question } from "../question";
+import type { Question } from "../question";
 
 export const mathQuestions: Question[] = [
   {
@@ -13,6 +13,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "ENEM",
   },
   {
     id: "2",
@@ -32,6 +33,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "VESTIBULAR",
   },
   {
     id: "3",
@@ -45,6 +47,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "ENEM",
   },
   {
     id: "4",
@@ -58,6 +61,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "CONCURSO",
   },
   {
     id: "5",
@@ -77,6 +81,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "ENEM",
   },
   {
     id: "6",
@@ -90,6 +95,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "VESTIBULAR",
   },
   {
     id: "7",
@@ -103,6 +109,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "VESTIBULAR",
   },
   {
     id: "8",
@@ -116,6 +123,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "CONCURSO",
   },
   {
     id: "9",
@@ -129,6 +137,7 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "ENEM",
   },
   {
     id: "10",
@@ -142,5 +151,6 @@ export const mathQuestions: Question[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
     categoryId: "1",
+    examType: "ENEM",
   },
 ];

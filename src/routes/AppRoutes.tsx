@@ -1,15 +1,18 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { AudioRecordingScreen } from "../pages/AudioRecordingScreen";
+import { ExamSelectionScreen } from "../pages/ExamSelectionScreen";
+import { LoginScreen } from "../pages/LoginScreen";
+import { MenuScreen } from "../pages/MenuScreen";
+import { QuestionDetailScreen } from "../pages/QuestionDetailScreen";
+import { QuestionsHomeScreen } from "../pages/QuestionsHomeScreen";
+import { QuestionsScreen } from "../pages/QuestionsScreen";
+import { RegisterScreen } from "../pages/RegisterScreen";
+import { SettingsScreen } from "../pages/SettingsScreen";
+import { SimulatorScreen } from "../pages/SimulatorScreen";
+import { SubjectAudioScreen } from "../pages/SubjectAudioScreen";
 import { paths } from "./paths";
 import { ProtectedRoute } from "./ProtectedRoutes";
-import { LoginScreen } from "../pages/LoginScreen";
-import { RegisterScreen } from "../pages/RegisterScreen";
-import { MenuScreen } from "../pages/MenuScreen";
-import { AudioRecordingScreen } from "../pages/AudioRecordingScreen";
-import { SubjectAudioScreen } from "../pages/SubjectAudioScreen";
-import { QuestionsScreen } from "../pages/QuestionsScreen";
-import { QuestionsHomeScreen } from "../pages/QuestionsHomeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +27,10 @@ export const AppRoutes = () => {
       >
         <Stack.Screen name={paths.login} component={LoginScreen} />
         <Stack.Screen name={paths.register} component={RegisterScreen} />
+        <Stack.Screen
+          name={paths.examSelection}
+          component={ExamSelectionScreen}
+        />
         <Stack.Screen
           name={paths.dashboard}
           component={() => (
@@ -57,10 +64,34 @@ export const AppRoutes = () => {
           )}
         />
         <Stack.Screen
+          name={paths.simulator}
+          component={() => (
+            <ProtectedRoute>
+              <SimulatorScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
           name={paths.questionsBySubject}
           component={({ route }: any) => (
             <ProtectedRoute>
               <QuestionsScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.questionDetail}
+          component={({ route }: any) => (
+            <ProtectedRoute>
+              <QuestionDetailScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.settings}
+          component={() => (
+            <ProtectedRoute>
+              <SettingsScreen />
             </ProtectedRoute>
           )}
         />

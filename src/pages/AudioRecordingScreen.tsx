@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   Alert,
   RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Layout } from "../components/layout";
 import { useAuth } from "../hooks/useAuth";
 import { AudioService } from "../services/audioService";
 import { SubjectAudioStats } from "../types/audio";
-import { Layout } from "../components/layout";
 
 export function AudioRecordingScreen() {
   const { user } = useAuth();

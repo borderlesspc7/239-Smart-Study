@@ -1,4 +1,5 @@
 export interface AudioRecording {
+  uri?: string;
   id: string;
   title: string;
   subject: string;

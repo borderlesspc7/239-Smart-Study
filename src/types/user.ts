@@ -5,6 +5,7 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
   role?: "admin" | "user";
+  preferredExamType?: "ENEM" | "VESTIBULAR" | "CONCURSO" | "GENERAL";
 }
 
 export interface AuthState {

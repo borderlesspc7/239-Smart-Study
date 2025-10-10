@@ -1,5 +1,5 @@
-import { AudioRecording, SubjectAudioStats } from "../types/audio";
 import { categories } from "../models/question/categories";
+import { AudioRecording, SubjectAudioStats } from "../types/audio";
 
 // Dados mockados para demonstração
 const mockAudioRecordings: AudioRecording[] = [
@@ -205,5 +205,34 @@ export class AudioService {
     if (bytes === 0) return "0 Bytes";
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     return Math.round((bytes / Math.pow(1024, i)) * 100) / 100 + " " + sizes[i];
+  }
+
+  // Dentro da classe AudioService
+  static async saveRecording(data: {
+    userId: string;
+    subject: string;
+    title: string;
+    topic: string;
+    duration: number;
+    uri: string;
+  }): Promise<AudioRecording> {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const newRecording: AudioRecording = {
+      id: Date.now().toString(),
+      uri: data.uri,
+      title: data.title,
+      subject: data.subject,
+      topic: data.topic,
+      duration: data.duration,
+      fileSize: Math.floor(Math.random() * 5000000) + 1000000,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      userId: data.userId,
+      isProcessed: true,
+    };
+
+    mockAudioRecordings.unshift(newRecording);
+    return newRecording;
   }
 }

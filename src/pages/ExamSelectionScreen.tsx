@@ -88,7 +88,11 @@ export function ExamSelectionScreen({
         await userService.saveExamType(user.uid, selectedExam);
         console.log("[v0] Exam type saved successfully:", selectedExam);
 
-        navigation.navigate(paths.dashboard as never);
+        if (isOnboarding) {
+          navigation.navigate(paths.subjectSelection as never);
+        } else {
+          navigation.goBack();
+        }
       } catch (error) {
         console.error("[v0] Error saving exam type:", error);
         Alert.alert(
@@ -107,7 +111,7 @@ export function ExamSelectionScreen({
     if (isOnboarding) {
       Alert.alert(
         "Pular seleção",
-        "Você poderá escolher o tipo de prova depois nas configurações. Deseja continuar?",
+        "Você poderá escolher o tipo de prova e matérias depois nas configurações. Deseja continuar?",
         [
           { text: "Cancelar", style: "cancel" },
           {

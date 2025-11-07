@@ -1,16 +1,16 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
   Alert,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { CustomButton } from "../components/button/customButton";
 import { useAuth } from "../hooks/useAuth";
 import { paths } from "../routes/paths";
@@ -31,9 +31,7 @@ export function LoginScreen() {
     try {
       await login({ email, password });
       navigation.navigate(paths.dashboard as never);
-    } catch (err) {
-      // O erro já é tratado no AuthContext
-    }
+    } catch (err) {}
   };
 
   React.useEffect(() => {
@@ -49,7 +47,6 @@ export function LoginScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.content}>
-        {/* Header Section */}
         <View style={styles.header}>
           <Text style={styles.appTitle}>Smart Student</Text>
           <Text style={styles.subtitle}>
@@ -57,22 +54,18 @@ export function LoginScreen() {
           </Text>
         </View>
 
-        {/* Login Form Card */}
         <View style={styles.formCard}>
-          {/* Icon */}
           <View style={styles.iconContainer}>
             <View style={styles.bookIcon}>
               <Ionicons name="book-outline" size={32} color="#E53E3E" />
             </View>
           </View>
 
-          {/* Form Title */}
           <Text style={styles.formTitle}>Entrar</Text>
           <Text style={styles.formSubtitle}>
             Entre na sua conta para continuar estudando
           </Text>
 
-          {/* Input Fields */}
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}>E-mail</Text>
             <View style={styles.inputWrapper}>
@@ -124,7 +117,6 @@ export function LoginScreen() {
             </View>
           </View>
 
-          {/* Login Button */}
           <CustomButton
             type="primary"
             onPress={handleLogin}
@@ -132,12 +124,10 @@ export function LoginScreen() {
             isDisabled={loading}
           />
 
-          {/* Forgot Password Link */}
           <TouchableOpacity style={styles.forgotPassword}>
             <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
 
-          {/* Register Link */}
           <TouchableOpacity
             style={styles.registerLink}
             onPress={() => navigation.navigate(paths.register as never)}
@@ -277,5 +267,15 @@ const styles = StyleSheet.create({
   registerLinkTextBold: {
     color: "#E53E3E",
     fontWeight: "600",
+  },
+  aiResponse: {
+    marginTop: 16,
+    fontSize: 14,
+    color: "#1F2937",
+    textAlign: "center",
+    backgroundColor: "#F3F4F6",
+    padding: 12,
+    borderRadius: 8,
+    lineHeight: 20,
   },
 });

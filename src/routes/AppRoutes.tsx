@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AudioRecordingScreen } from "../pages/AudioRecordingScreen";
+import { ContentTopicsSelectionScreen } from "../pages/ContentTopicsSelectionScreen";
 import { ExamSelectionScreen } from "../pages/ExamSelectionScreen";
 import { LoginScreen } from "../pages/LoginScreen";
 import { MenuScreen } from "../pages/MenuScreen";
@@ -11,6 +12,7 @@ import { RegisterScreen } from "../pages/RegisterScreen";
 import { SettingsScreen } from "../pages/SettingsScreen";
 import { SimulatorScreen } from "../pages/SimulatorScreen";
 import { SubjectAudioScreen } from "../pages/SubjectAudioScreen";
+import { SubjectSelectionScreen } from "../pages/SubjectSelectionScreen";
 import { paths } from "./paths";
 import { ProtectedRoute } from "./ProtectedRoutes";
 
@@ -30,6 +32,14 @@ export const AppRoutes = () => {
         <Stack.Screen
           name={paths.examSelection}
           component={ExamSelectionScreen}
+        />
+        <Stack.Screen
+          name={paths.subjectSelection}
+          component={SubjectSelectionScreen}
+        />
+        <Stack.Screen
+          name={paths.contentTopicsSelection}
+          component={ContentTopicsSelectionScreen}
         />
         <Stack.Screen
           name={paths.dashboard}

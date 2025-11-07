@@ -6,6 +6,8 @@ export interface User {
   updatedAt: Date;
   role?: "admin" | "user";
   preferredExamType?: "ENEM" | "VESTIBULAR" | "CONCURSO" | "GENERAL";
+  preferredSubjects?: string[];
+  contentTopics?: string[];
 }
 
 export interface AuthState {
@@ -21,7 +23,7 @@ export interface LoginCredentials {
 
 export interface RegisterCredentials extends LoginCredentials {
   name: string;
-  confirmPassword?: string; // Opcional, usado apenas para validação local
+  confirmPassword?: string;
   phone?: string;
   role?: "admin" | "user";
 }

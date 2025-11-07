@@ -2,7 +2,9 @@ export const paths = {
   // Auth
   login: "/login",
   register: "/register",
-  examSelection: "/exam-selection", // Added exam selection path
+  examSelection: "/exam-selection",
+  subjectSelection: "/subject-selection",
+  contentTopicsSelection: "/content-topics-selection",
 
   // Main
   dashboard: "/dashboard",
@@ -10,7 +12,7 @@ export const paths = {
   // Study Section
   questionsHome: "/questions-home",
   questionsBySubject: "/questions-by-subject",
-  questionDetail: "/question-detail", // Added question detail path
+  questionDetail: "/question-detail",
   practice: "/practice",
   simulator: "/simulator",
   audioRecording: "/audio-recording",

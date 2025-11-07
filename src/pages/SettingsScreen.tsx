@@ -35,7 +35,7 @@ export function SettingsScreen() {
         style: "destructive",
         onPress: async () => {
           await logout();
-          navigation.navigate(paths.login as never);
+          // Navigation removed - ProtectedRoute will automatically redirect to login
         },
       },
     ]);
@@ -59,6 +59,14 @@ export function SettingsScreen() {
           subtitle: "Alterar prova que você vai fazer",
           icon: "school",
           onPress: () => navigation.navigate(paths.examSelection as never),
+          showArrow: true,
+        },
+        {
+          id: "subjects",
+          title: "Matérias de Estudo",
+          subtitle: "Escolher matérias que deseja estudar",
+          icon: "subject",
+          onPress: () => navigation.navigate(paths.subjectSelection as never),
           showArrow: true,
         },
       ],

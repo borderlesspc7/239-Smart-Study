@@ -1,16 +1,22 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { AboutScreen } from "../pages/AboutScreen";
 import { AudioRecordingScreen } from "../pages/AudioRecordingScreen";
+import { ContentLibraryScreen } from "../pages/ContentLibraryScreen";
+import { ContentsScreen } from "../pages/ContentScreen";
 import { ContentTopicsSelectionScreen } from "../pages/ContentTopicsSelectionScreen";
 import { ExamSelectionScreen } from "../pages/ExamSelectionScreen";
 import { LoginScreen } from "../pages/LoginScreen";
 import { MenuScreen } from "../pages/MenuScreen";
+import { ProfileScreen } from "../pages/ProfileScreen";
 import { QuestionDetailScreen } from "../pages/QuestionDetailScreen";
 import { QuestionsHomeScreen } from "../pages/QuestionsHomeScreen";
 import { QuestionsScreen } from "../pages/QuestionsScreen";
 import { RegisterScreen } from "../pages/RegisterScreen";
+import { ReportsScreen } from "../pages/ReportsScreen";
 import { SettingsScreen } from "../pages/SettingsScreen";
 import { SimulatorScreen } from "../pages/SimulatorScreen";
+import { StatisticsScreen } from "../pages/StatisticsScreen";
 import { SubjectAudioScreen } from "../pages/SubjectAudioScreen";
 import { SubjectSelectionScreen } from "../pages/SubjectSelectionScreen";
 import { paths } from "./paths";
@@ -102,6 +108,54 @@ export const AppRoutes = () => {
           component={() => (
             <ProtectedRoute>
               <SettingsScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.reports}
+          component={() => (
+            <ProtectedRoute>
+              <ReportsScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.statistics}
+          component={() => (
+            <ProtectedRoute>
+              <StatisticsScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.profile}
+          component={() => (
+            <ProtectedRoute>
+              <ProfileScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.content}
+          component={() => (
+            <ProtectedRoute>
+              <ContentsScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.contentLibrary}
+          component={() => (
+            <ProtectedRoute>
+              <ContentLibraryScreen />
+            </ProtectedRoute>
+          )}
+        />
+        <Stack.Screen
+          name={paths.about}
+          component={() => (
+            <ProtectedRoute>
+              <AboutScreen />
             </ProtectedRoute>
           )}
         />

@@ -1,13 +1,13 @@
 export interface StudyStatistics {
   questionsAnswered: number;
   correctAnswers: number;
-  studyTimeTotal: number; // em minutos
-  currentStreak: number; // dias consecutivos de estudo
+  studyTimeTotal: number;
+  currentStreak: number;
   totalExams: number;
-  averageScore: number; // porcentagem
+  averageScore: number;
   lastStudyDate: Date | null;
-  weeklyGoal: number; // minutos por semana
-  weeklyProgress: number; // minutos estudados nesta semana
+  weeklyGoal: number;
+  weeklyProgress: number;
 }
 
 export interface QuickAccessItem {
@@ -24,7 +24,7 @@ export interface StudyContent {
   id: string;
   title: string;
   type: "video" | "text" | "podcast" | "audio";
-  duration?: number; // em minutos
+  duration?: number;
   category: string;
   thumbnail?: string;
   isCompleted: boolean;
@@ -38,7 +38,7 @@ export interface ExamResult {
   totalQuestions: number;
   correctAnswers: number;
   completedAt: Date;
-  timeSpent: number; // em minutos
+  timeSpent: number;
   subject: string;
 }
 

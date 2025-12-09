@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  ScrollView,
-  TouchableOpacity,
-  RefreshControl,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+"use client";
+
 import { MaterialIcons } from "@expo/vector-icons";
-import { useAuth } from "../hooks/useAuth";
-import { DashboardService } from "../services/dashboardService";
-import { DashboardData } from "../types/dashboard";
-import { paths } from "../routes/paths";
-import { StatCard } from "../components/dashboard/StatCard";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import {
+  Alert,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { QuickAccessCard } from "../components/dashboard/QuickAccessCard";
-import { WeeklyProgress } from "../components/dashboard/WeeklyProgress";
 import { RecentContentCard } from "../components/dashboard/RecentContentCard";
+import { StatCard } from "../components/dashboard/StatCard";
+import { WeeklyProgress } from "../components/dashboard/WeeklyProgress";
 import { Layout } from "../components/layout";
+import { useAuth } from "../hooks/useAuth";
+import { paths } from "../routes/paths";
+import { DashboardService } from "../services/dashboardService";
+import type { DashboardData } from "../types/dashboard";
 
 export function MenuScreen() {
   const { user, logout } = useAuth();
@@ -72,17 +74,11 @@ export function MenuScreen() {
 
   const handleQuickAccess = (route: string) => {
     console.log("Tentando navegar para:", route);
+    (navigation as any).navigate(route);
+  };
 
-    if (route === paths.audioRecording) {
-      (navigation as any).navigate(route);
-    } else if (route === paths.questionsHome) {
-      (navigation as any).navigate(route);
-    } else if (route === paths.questionsBySubject) {
-      (navigation as any).navigate(route);
-    } else {
-      // TODO: Implementar navegação para as outras telas
-      Alert.alert("Navegação", `Navegando para: ${route}`);
-    }
+  const handleViewContentLibrary = () => {
+    (navigation as any).navigate(paths.contentLibrary);
   };
 
   const handleContentPress = (content: any) => {
@@ -165,6 +161,23 @@ export function MenuScreen() {
             weeklyGoal={dashboardData.statistics.weeklyGoal}
             weeklyProgress={dashboardData.statistics.weeklyProgress}
           />
+        </View>
+
+        {/* Content Library Button */}
+        <View style={styles.section}>
+          <TouchableOpacity
+            style={styles.contentLibraryButton}
+            onPress={handleViewContentLibrary}
+          >
+            <MaterialIcons name="library-books" size={24} color="#fff" />
+            <View style={styles.buttonContent}>
+              <Text style={styles.buttonTitle}>Biblioteca de Conteúdo</Text>
+              <Text style={styles.buttonSubtitle}>
+                Vídeos, textos e podcasts
+              </Text>
+            </View>
+            <MaterialIcons name="arrow-forward" size={24} color="#fff" />
+          </TouchableOpacity>
         </View>
 
         {/* Acesso Rápido */}
@@ -338,5 +351,34 @@ const styles = StyleSheet.create({
   },
   bottomPadding: {
     height: 20,
+  },
+  contentLibraryButton: {
+    backgroundColor: "#6366F1",
+    borderRadius: 12,
+    padding: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  buttonContent: {
+    flex: 1,
+  },
+  buttonTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#fff",
+  },
+  buttonSubtitle: {
+    fontSize: 13,
+    color: "rgba(255,255,255,0.8)",
+    marginTop: 2,
   },
 });

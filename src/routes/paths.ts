@@ -8,6 +8,7 @@ export const paths = {
 
   // Main
   dashboard: "/dashboard",
+  profile: "/profile",
 
   // Study Section
   questionsHome: "/questions-home",
@@ -27,6 +28,7 @@ export const paths = {
 
   // Content Section
   content: "/content",
+  contentLibrary: "/content-library",
   subjects: "/subjects",
   favorites: "/favorites",
   recent: "/recent",

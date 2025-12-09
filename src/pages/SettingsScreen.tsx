@@ -50,7 +50,7 @@ export function SettingsScreen() {
           title: "Perfil",
           subtitle: user?.name || user?.email,
           icon: "person",
-          onPress: () => console.log("Navigate to profile"),
+          onPress: () => navigation.navigate(paths.profile as never),
           showArrow: true,
         },
         {
